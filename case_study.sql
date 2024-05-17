@@ -1,7 +1,7 @@
 -- create CARS database
 create database CARS
-drop DATABASE CARS
 
+Use CARS
 
 -- Create table for Incidents
 CREATE TABLE Incidents (
@@ -13,11 +13,10 @@ CREATE TABLE Incidents (
     Status VARCHAR(20) not null check(Status in('Open', 'Closed', 'Under Investigation')),
     VictimID INT not null,
     SuspectID INT not null,
+	CaseID INT default 1,
     FOREIGN KEY (VictimID) REFERENCES Victims(VictimID),
-    FOREIGN KEY (SuspectID) REFERENCES Suspects(SuspectID)
+    FOREIGN KEY (SuspectID) REFERENCES Suspects(SuspectID),
 );
-
-select * from Incidents
 
 -- Create table for Victims
 CREATE TABLE Victims (
@@ -87,15 +86,16 @@ CREATE TABLE Reports (
 
 -- Create a case table 
 CREATE TABLE Cases (
-    CaseID INT PRIMARY KEY IDENTITY(1,1),
-    CaseNo VARCHAR(100) NOT NULL,
+    CaseID INT PRIMARY KEY IDENTITY(500,1),
     CaseDescription TEXT,
+	CaseStatus VARCHAR(100) not null check(CaseStatus in('Open', 'Closed', 'Under Investigation')),
     IncidentID INT NOT NULL,
     OfficerID INT NOT NULL,
     CONSTRAINT FK_Incident_Case FOREIGN KEY (IncidentID) REFERENCES Incidents(IncidentID),
     CONSTRAINT FK_Officer_Case FOREIGN KEY (OfficerID) REFERENCES Officers(OfficerID)
 ); 
 
+drop table Cases;
 
 
 --Insert into Incidents 
@@ -142,35 +142,35 @@ VALUES ('Indore Police', 'Indore, Madhya Pradesh', 7323430100, 350),
 
 --Insert into Officers 
 INSERT INTO Officers (FirstName, LastName, BadgeNumber, Rank, ContactInformation, AgencyID)
-VALUES('Sonia', 'Gupta', 10987, 'Inspector', 9167890567, 301),  -- Indore Police
-  ('Akash', 'Verma', 12345, 'Inspector', 9876543210, 302),  -- Mumbai Police 
-  ('Kiara', 'Kaur', 54321, 'Sub-Inspector', 9876543210, 303),  -- Delhi Police
-   ('Rohan', 'Shah', 67890, 'Inspector', 9780125678, 304)  -- Ahmedabad Police
+VALUES('Sonia', 'Gupta', 10987, 'Inspector', 9167890567, 300),  -- Indore Police
+  ('Akash', 'Verma', 12345, 'Inspector', 9876543210, 301),  -- Mumbai Police 
+  ('Kiara', 'Kaur', 54321, 'Sub-Inspector', 9876543210, 302),  -- Delhi Police
+   ('Rohan', 'Shah', 67890, 'Inspector', 9780125678, 303)  -- Ahmedabad Police
  
 
 
 --Insert into Evidence 
 INSERT INTO Evidence (Description, LocationFound, IncidentID)
 VALUES
-  ('Fingerprint lifted from the crime scene', 'Victim apartment', 7),
-  ('Tire tracks found at the scene', 'Dirt road near the abandoned warehouse', 6),
+  ('Fingerprint lifted from the crime scene', 'Victim apartment', 1),
+  ('Tire tracks found at the scene', 'Dirt road near the abandoned warehouse', 2),
   ('Ballistic evidence (bullet casings)', 'Forensics lab', 3),
-  ('DNA sample from the crime scene', 'Crime scene investigation', 1)
+  ('DNA sample from the crime scene', 'Crime scene investigation', 4)
 
 --Insert into Reports 
 INSERT INTO Reports (IncidentID, ReportingOfficer, ReportDate, ReportDetails, Status)
 VALUES
-  (1, 358, '2024-05-03', 'Initial report of a homicide at the victims apartment. Fingerprint evidence collected.', 'Draft'),
-  (3, 359, '2024-05-03', 'Follow-up investigation at the crime scene. Murder weapon recovered.', 'Draft'),
-  (6, 360, '2024-05-03', 'Witness interview conducted. Witness provided description of the suspect.', 'Draft'),
-  (7, 361, '2024-05-04', 'Security camera footage obtained from nearby store. Suspect identified.', 'Draft')
+  (1, 354, '2024-05-03', 'Initial report of a homicide at the victims apartment. Fingerprint evidence collected.', 'Draft'),
+  (2, 355, '2024-05-03', 'Follow-up investigation at the crime scene. Murder weapon recovered.', 'Draft'),
+  (3, 356, '2024-05-03', 'Witness interview conducted. Witness provided description of the suspect.', 'Draft'),
+  (4, 357, '2024-05-04', 'Security camera footage obtained from nearby store. Suspect identified.', 'Draft')
   
 --insert into cases
-INSERT INTO Cases (CaseNo, CaseDescription, IncidentID, OfficerID)
-VALUES ('CASE101', 'Robbery at convenience store',  1, 358),
-    ('CASE102', 'Car break-in, laptop stolen',  3, 359),
-    ('CASE103', 'Domestic violence incident',  6, 360),
-    ('CASE104', 'Bank robbery',  7, 361)
+INSERT INTO Cases (CaseStatus ,CaseDescription, IncidentID, OfficerID)
+VALUES ('Closed','Robbery at convenience store',  1, 354),
+    ('Open','Car break-in, laptop stolen',  2, 355),
+    ('Closed','Domestic violence incident',  3, 356),
+    ('Closed', 'Bank robbery',  1, 357)
     
 select * from Incidents 
 select * from Victims 
@@ -180,3 +180,6 @@ select * from Officers
 select * from Evidence 
 select * from Reports 
 select * from Cases
+
+select Incidents.IncidentID, IncidentType, IncidentDate, Description, Incidents.Status, ReportingOfficer, FirstName, 
+LastName from Incidents join Reports on Incidents.IncidentID = Reports.IncidentID join Officers on Reports.ReportingOfficer = Officers.OfficerID
