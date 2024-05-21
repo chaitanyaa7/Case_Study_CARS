@@ -25,26 +25,25 @@ namespace CARS.Service
            
 
             Console.WriteLine("Please enter the IncidentType (e.g., Robbery, Homicide, Theft):");
-            incident.incidentType = Console.ReadLine();
+            incident.IncidentType = Console.ReadLine();
 
             Console.WriteLine("Please enter the IncidentDate (e.g., 2024-05-16):");
-            incident.incidentDate = DateTime.Parse(Console.ReadLine());
+            incident.IncidentDate = DateTime.Parse(Console.ReadLine());
 
            
             Console.WriteLine("Please enter the Location (string format):");
-            incident.location = Console.ReadLine();
+            incident.Location = Console.ReadLine();
 
             
             Console.WriteLine("Please enter the Description:");
-            incident.description = Console.ReadLine();
+            incident.Description = Console.ReadLine();
 
             
             Console.WriteLine("Please enter the Status (e.g., Open, Closed, Under Investigation):");
-            incident.status = Console.ReadLine();
+            incident.Status = Console.ReadLine();
 
            
-            Console.WriteLine("Please enter the IncidentID:");
-            incident.incidentID = int.Parse(Console.ReadLine());
+           
 
            
             if (service.CreateIncident(incident))
@@ -135,14 +134,14 @@ namespace CARS.Service
         {
             Incident incident= new Incident();  
             Console.WriteLine("Please enter the Description:");
-            incident.description = Console.ReadLine();
+            incident.Description = Console.ReadLine();
 
 
             Console.WriteLine("Please enter the Status (e.g., Open, Closed, Under Investigation):");
-            incident.status = Console.ReadLine();
+            incident.Status = Console.ReadLine();
 
             Console.WriteLine("Please enter the IncidentDate (e.g., 2024-05-16):");
-            incident.incidentDate = DateTime.Parse(Console.ReadLine());
+            incident.IncidentDate = DateTime.Parse(Console.ReadLine());
 
             if (service.GenerateIncidentReport(incident)!=null)
             {

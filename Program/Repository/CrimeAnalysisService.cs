@@ -27,13 +27,13 @@ namespace CARS.Repository
             cmd.Connection = sqlConnection;
             sqlConnection.Open();
             
-                cmd.Parameters.AddWithValue("@IncidentType", incident.incidentType);
-                cmd.Parameters.AddWithValue("@IncidentDate", incident.incidentDate);
-                cmd.Parameters.AddWithValue("@Location", incident.location);
-                cmd.Parameters.AddWithValue("@Description", incident.description);
-                cmd.Parameters.AddWithValue("@Status", incident.status);
-                cmd.Parameters.AddWithValue("@VictimID", incident.victimID);
-                cmd.Parameters.AddWithValue("@SuspectID", incident.suspectID);
+                cmd.Parameters.AddWithValue("@IncidentType", incident.IncidentType);
+                cmd.Parameters.AddWithValue("@IncidentDate", incident.IncidentDate);
+                cmd.Parameters.AddWithValue("@Location", incident.Location);
+                cmd.Parameters.AddWithValue("@Description", incident.Description);
+                cmd.Parameters.AddWithValue("@Status", incident.Status);
+                cmd.Parameters.AddWithValue("@VictimID", incident.VictimID);
+                cmd.Parameters.AddWithValue("@SuspectID", incident.SuspectID);
                 
                 return cmd.ExecuteNonQuery() > 0;
             
@@ -66,14 +66,14 @@ namespace CARS.Repository
                     {
                         Incident incident = new Incident
                         {
-                            incidentID = (int)reader["IncidentID"],
-                            incidentType = (string)reader["IncidentType"],
-                            incidentDate = (DateTime)reader["IncidentDate"],
-                            location = (string)reader["Location"],
-                            description = (string)reader["Description"],
-                            status = (string)reader["Status"],
-                            victimID = (int)reader["VictimID"],
-                            suspectID = (int)reader["SuspectID"]
+                            IncidentID = (int)reader["IncidentID"],
+                            IncidentType = (string)reader["IncidentType"],
+                            IncidentDate = (DateTime)reader["IncidentDate"],
+                            Location = (string)reader["Location"],
+                            Description = (string)reader["Description"],
+                            Status = (string)reader["Status"],
+                            VictimID = (int)reader["VictimID"],
+                            SuspectID = (int)reader["SuspectID"]
                         };
                         incidents.Add(incident);
                     }
@@ -98,14 +98,14 @@ namespace CARS.Repository
                     {
                         Incident incident = new Incident
                         {
-                            incidentID = (int)reader["IncidentID"],
-                            incidentType = (string)reader["IncidentType"],
-                            incidentDate = (DateTime)reader["IncidentDate"],
-                            location = (string)reader["Location"],
-                            description = (string)reader["Description"],
-                            status = (string)reader["Status"],
-                            victimID = (int)reader["VictimID"],
-                            suspectID = (int)reader["SuspectID"]
+                            IncidentID = (int)reader["IncidentID"],
+                            IncidentType = (string)reader["IncidentType"],
+                            IncidentDate = (DateTime)reader["IncidentDate"],
+                            Location = (string)reader["Location"],
+                            Description = (string)reader["Description"],
+                            Status = (string)reader["Status"],
+                            VictimID = (int)reader["VictimID"],
+                            SuspectID = (int)reader["SuspectID"]
                         };
                         incidents.Add(incident);
                     }
@@ -120,18 +120,18 @@ namespace CARS.Repository
             
             Report report = new Report();
            
-            report.status=incident.status;
-            report.reportDate = incident.incidentDate;
-            report.reportDetails = incident.description;
+            report.Status=incident.Status;
+            report.ReportDate = incident.IncidentDate;
+            report.ReportDetails = incident.Description;
 
 
             cmd.CommandText = "INSERT INTO Reports ( ReportDate, ReportDetails, Status) VALUES ( @ReportDate, @ReportDetails, @Status)";
             cmd.Connection = sqlConnection;
             sqlConnection.Open();
                 
-                cmd.Parameters.AddWithValue("@ReportDate", report.reportDate);
-                cmd.Parameters.AddWithValue("@ReportDetails", report.reportDetails);
-                cmd.Parameters.AddWithValue("@Status", report.status);
+                cmd.Parameters.AddWithValue("@ReportDate", report.ReportDate);
+                cmd.Parameters.AddWithValue("@ReportDetails", report.ReportDetails);
+                cmd.Parameters.AddWithValue("@Status", report.Status);
             sqlConnection.Close();
                 if (cmd.ExecuteNonQuery() > 0)
                 {
@@ -248,14 +248,14 @@ namespace CARS.Repository
                 {
                     Incident incident = new Incident
                     {
-                        incidentID = (int)reader["IncidentID"],
-                        incidentType = (string)reader["IncidentType"],
-                        incidentDate = (DateTime)reader["IncidentDate"],
-                        location = (string)reader["Location"],
-                        description = (string)reader["Description"],
-                        status = (string)reader["Status"],
-                        victimID = (int)reader["VictimID"],
-                        suspectID = (int)reader["SuspectID"]
+                        IncidentID = (int)reader["IncidentID"],
+                        IncidentType = (string)reader["IncidentType"],
+                        IncidentDate = (DateTime)reader["IncidentDate"],
+                        Location = (string)reader["Location"],
+                        Description = (string)reader["Description"],
+                        Status = (string)reader["Status"],
+                        VictimID = (int)reader["VictimID"],
+                        SuspectID = (int)reader["SuspectID"]
                     };
                     incidents.Add(incident);
                 }
@@ -280,14 +280,14 @@ namespace CARS.Repository
                 {
                     Incident incid = new Incident
                     {
-                        incidentID = (int)reader["IncidentID"],
-                        incidentType = (string)reader["IncidentType"],
-                        incidentDate = (DateTime)reader["IncidentDate"],
-                        location = (string)reader["Location"],
-                        description = (string)reader["Description"],
-                        status = (string)reader["Status"],
-                        victimID = (int)reader["VictimID"],
-                        suspectID = (int)reader["SuspectID"]
+                        IncidentID = (int)reader["IncidentID"],
+                        IncidentType = (string)reader["IncidentType"],
+                        IncidentDate = (DateTime)reader["IncidentDate"],
+                        Location = (string)reader["Location"],
+                        Description = (string)reader["Description"],
+                        Status = (string)reader["Status"],
+                        VictimID = (int)reader["VictimID"],
+                        SuspectID = (int)reader["SuspectID"]
                     };
                     incidents.Add(incid);
                 }
